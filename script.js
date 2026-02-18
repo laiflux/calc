@@ -19,6 +19,8 @@ const six = document.getElementById('six');
 const seven = document.getElementById('seven');
 const eight = document.getElementById('eight');
 const nine = document.getElementById('nine');
+const display = document.getElementById("display");
+const calculator = document.querySelector('#calculator');
 
 function add(num1, num2) {
     return num1 + num2 
@@ -53,3 +55,24 @@ function operate(num1, num2, op) {
     }
 }
 
+clear.addEventListener('click', () => {
+    display.textContent = ''
+})
+
+calculator.addEventListener('click', function(e) {
+    let tgt = e.target;
+    if (tgt.id === 'zero') {
+        display.textContent += '0'
+    }
+})
+
+/*
+
+zero.addEventListener('click', () => {
+    display.textContent += "0"
+})
+
+one.addEventListener('click', () => {
+    display.textContent += "1"
+})
+    */
