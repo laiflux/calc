@@ -27,20 +27,25 @@
 .btn {
     border: 5px solid yellowgreen;
     border-radius: 20px;
-    background-color: teal;
+    background-color: rgb(45, 104, 104);
     color: yellowgreen;
     font-size: 16px;
 }
 
-
+#clear {
+    grid-column: 1 / span 1;
+    background-color: #154d3e;
+    font-size: 14px;;
+}
 
 #zero {
     grid-column: 1 / span 2;
 }
+
 #equal {
-    grid-column: 1 / span 4;
+    grid-column: 2 / span 3;
 }
 
 .btn.op {
-    background-color: #346e4e;
+    background-color: #154d3e;
 }
