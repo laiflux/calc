@@ -63,6 +63,26 @@ calculator.addEventListener('click', function(e) {
     let tgt = e.target;
     if (tgt.id === 'zero') {
         display.textContent += '0'
+    } else if (tgt.id === 'one') {
+        display.textContent += '1';
+    } else if (tgt.id === 'two') {
+        display.textContent += '2';
+    } else if (tgt.id === 'three') {
+        display.textContent += '3';
+    } else if (tgt.id === 'four') {
+        display.textContent += '4';
+    } else if (tgt.id === 'five') {
+        display.textContent += '5';
+    } else if (tgt.id === 'six') {
+        display.textContent += '6';
+    } else if (tgt.id === 'seven') {
+        display.textContent += '7';
+    } else if (tgt.id === 'eight') {
+        display.textContent += '8';
+    } else if (tgt.id === 'nine') {
+        display.textContent += '9';
+    } else if (tgt.id === 'point') {
+        display.textContent += ".";
     }
 })
 

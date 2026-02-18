@@ -25,8 +25,10 @@
     border-radius: 10px;
     border: 0.3rem solid #888;
     text-align: right;
-    padding: 1.2rem 1rem;
-    font-size: 2rem;
+    padding-bottom: 1.5rem;
+    padding-right: 1rem;
+    padding-top: 0.1rem;
+    font-size: 2.5rem;
     font-weight: 700;
 }
 
@@ -35,7 +37,7 @@
     border-radius: 20px;
     background-color: rgb(45, 104, 104);
     color: yellowgreen;
-    font-size: 1rem;
+    font-size: 1.4rem;
     padding: 0.2rem;
 }
 
@@ -57,6 +59,7 @@
 #delete {
     grid-row: 2;
     grid-column: 4 / span 1;
+    font-size: 1rem;
 }
 
 .btn.op {
