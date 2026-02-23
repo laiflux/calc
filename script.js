@@ -1,98 +1,173 @@
+function add(x, y) {
+    return x + y;
+} 
 
-let numX;
-let numY;
-let op;
-const clear = document.getElementById('clear');
-const equal = document.getElementById('equal');
-const signAdd = document.getElementById('add');
-const signSubtract = document.getElementById('subtract');
-const signMultiply = document.getElementById('multiply');
-const signDivide = document.getElementById('divide');
-const decimalPoint = document.getElementById('point');
-const zero = document.getElementById('zero');
-const one = document.getElementById('one');
-const two = document.getElementById('two');
-const three = document.getElementById('three');
-const four = document.getElementById('four');
-const five = document.getElementById('five');
-const six = document.getElementById('six');
-const seven = document.getElementById('seven');
-const eight = document.getElementById('eight');
-const nine = document.getElementById('nine');
+function subtract(x, y) {
+    return x - y;
+}
+
+function multiply(x, y) {
+    return x * y;
+}
+
+function divide(x, y) {
+    if (y === 0) {
+        return "no zero divisor -.-"
+    }
+    else {
+        return x / y;
+    }
+}
+
+function operate(operator, x, y) {
+    switch (operator) {
+        case "+":
+            return add(x, y);
+        case "-":
+            return subtract(x, y);
+        case "×":
+            return multiply(x, y);
+        case "÷":
+            return divide(x, y);
+        default:
+            return null;
+    }
+}
+
+const btnValues = [
+    "AC", "=", "DEL",
+    "7", "8", "9", "÷",
+    "4", "5", "6", "×",
+    "1", "2", "3", "-",
+    "0", ".", "+"
+];
+
+const opSymbols = ["÷", "×", "-", "+", "="];
+const remSymbols = [ "AC", "DEL"];
+const btns = document.getElementById('btns');
 const display = document.getElementById("display");
-const calculator = document.querySelector('#calculator');
 
-function add(num1, num2) {
-    return num1 + num2 
+let num1 = null;
+let op = null;
+let num2 = null;
+
+function clearAll() {
+    num1 = null;
+    op = null;
+    num2 = null;
 }
 
-function subtract(num1, num2) {
-    return num1 - num2
-}
+for (let i = 0; i < btnValues.length; i++) {
+    let value = btnValues[i];
+    let btn = document.createElement("button");
+    btn.innerText = value;
 
-function multiply(num1, num2) {
-    return num1 * num2
-}
-
-function divide(num1, num2) {
-    return num1 / num2
-}
-
-function operate(num1, num2, op) {
-    switch (op) {
-        case add: 
-            add(num1, num2);
-            break;
-        case subtract:
-            subtract(num1, num2);
-            break;
-        case multiply:
-            multiply(num1, num2);
-            break;
-        case divide:
-            divide(num1, num2);
-            break;
+    if (value == "0") {
+        btn.style.gridColumn = "span 2";
+    } 
+    else if (value == "=") {
+        btn.style.gridColumn = "span 2";
+        btn.style.backgroundColor = "rgba(89, 134, 189, 0.88)";
     }
+    else if (remSymbols.includes(value)) {
+        btn.style.fontSize = "1.2rem";
+        btn.style.backgroundColor= "rgb(97, 90, 169)";
+    }
+    else if (opSymbols.includes(value)) {
+        btn.style.backgroundColor = "rgba(89, 134, 189, 0.88)";
+    }
+    btn.addEventListener("click", () => {
+        if (opSymbols.includes(value)) {
+            if (value === "=") {
+                if (num1 !== null && op !== null && display.value !== "") {
+                    num2 = parseFloat(display.value);
+
+                    let result = operate(op, parseFloat(num1), parseFloat(num2));
+                        
+                    if (!Number.isInteger(result)) {
+                        result = parseFloat(result.toFixed(4));
+                        }
+                    display.value = result;
+                    num1 = result;
+                    op = null;
+                    num2 = null;
+                    
+                }
+            }
+            else {
+                if (num1 !== null && op !== null && display.value !== "") {
+                num2 = parseFloat(display.value);
+                let result = operate(op, parseFloat(num1), parseFloat(num2));
+                
+                if (!Number.isInteger(result)) {
+                    result = parseFloat(result.toFixed(4));
+                }
+                display.value = result;
+                num1 = result;
+                
+             } else if (display.value !== "") {
+                num1 = parseFloat(display.value);
+                }
+                op = value;
+                display.value = "";
+            }
+        } else if (remSymbols.includes(value)) {
+            if (value == "AC") {
+                clearAll();
+                display.value = "";
+            }
+            else if (value == "DEL") {
+                display.value = display.value.toString().slice(0, -1);
+            }
+        }
+        else {
+            if (value == ".") {
+                if (display.value != "" && !display.value.includes(value)) {
+                    display.value += value;
+                }
+            }
+            else if (display.value == "0") {
+                display.value = value;
+            }
+            else {
+                display.value += value;
+            }
+        }
+    });
+    btns.appendChild(btn);
 }
 
-clear.addEventListener('click', () => {
-    display.textContent = ''
-})
+document.addEventListener("keydown", (e) => {
+    const key = e.key;
+    let value = null;
 
-calculator.addEventListener('click', function(e) {
-    let tgt = e.target;
-    if (tgt.id === 'zero') {
-        display.textContent += '0'
-    } else if (tgt.id === 'one') {
-        display.textContent += '1';
-    } else if (tgt.id === 'two') {
-        display.textContent += '2';
-    } else if (tgt.id === 'three') {
-        display.textContent += '3';
-    } else if (tgt.id === 'four') {
-        display.textContent += '4';
-    } else if (tgt.id === 'five') {
-        display.textContent += '5';
-    } else if (tgt.id === 'six') {
-        display.textContent += '6';
-    } else if (tgt.id === 'seven') {
-        display.textContent += '7';
-    } else if (tgt.id === 'eight') {
-        display.textContent += '8';
-    } else if (tgt.id === 'nine') {
-        display.textContent += '9';
-    } else if (tgt.id === 'point') {
-        display.textContent += ".";
+    if (!isNaN(key)) {
+        value = key;
+    }
+    else if (key === "+" || key === "-" || key === "*" || key === "/" || key === "=" || key === "Enter") {
+        if (key === "*") value = "×";
+        else if (key === "/") value = "÷";
+        else if (key === "Enter") value = "=";
+        else value = key;
+    } 
+    else if (key === "Escape") {
+        value = "AC";
+    }
+    else if (key === "Backspace") {
+        value = "DEL"
+    }
+    else if (key === ".") {
+        value = ".";
+    }
+
+    if (value !== null) {
+        e.preventDefault();
+        const buttons = document.querySelectorAll("#btns button");
+        for (let button of buttons) {
+            if (button.innerText === value) {
+                button.click();
+                break;
+            }
+        }
     }
 })
-
-/*
-
-zero.addEventListener('click', () => {
-    display.textContent += "0"
-})
-
-one.addEventListener('click', () => {
-    display.textContent += "1"
-})
-    */
